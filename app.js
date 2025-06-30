@@ -173,11 +173,12 @@ function prevQuestion() {
     renderLearnMode();
   }
 }
-
 function nextQuestion() {
   if (currentIndex < questions.length - 1) {
     currentIndex++;
     renderLearnMode();
+  } else {
+    renderEndScreen("learn");
   }
 }
 
@@ -336,8 +337,12 @@ function checkAnswer() {
 }
 
 function nextTestQuestion() {
-  currentIndex++;
-  renderTestQuestion();
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderTestQuestion();
+  } else {
+    renderEndScreen("test");
+  }
 }
 
 function saveProgress() {
@@ -356,4 +361,45 @@ function loadProgress() {
     learnedTestMode = progress.learnedTestMode || [];
     wrongQuestions = progress.wrongQuestions || [];
   }
+}
+
+function renderEndScreen(mode) {
+  const app = document.getElementById("app");
+  const message =
+    mode === "learn" ? "Ukończyłaś tryb nauki!" : "Ukończyłaś tryb testu!";
+
+  app.innerHTML = `
+    <div class="bg-white p-4 rounded-lg border-2 border-pink-300 shadow text-center">
+      <h2 class="text-2xl font-bold text-pink-500">${message}</h2>
+      <p class="mt-4">Gratulacje, księżniczko 🌸💖</p>
+      <div class="mt-4 space-x-2">
+        <button onclick="restartMode('${mode}')" class="bg-pink-400 hover:bg-pink-500 text-white py-2 px-4 rounded">Zacznij od nowa</button>
+        <button onclick="restMessage()" class="bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded">Odpocznij</button>
+      </div>
+    </div>
+  `;
+}
+function restartMode(mode) {
+  if (mode === "learn") {
+    learnedLearnMode = [];
+    saveProgress();
+    currentIndex = 0;
+    renderLearnMode();
+  } else if (mode === "test") {
+    learnedTestMode = [];
+    saveProgress();
+    currentIndex = 0;
+    renderTestQuestion();
+  }
+}
+
+function restMessage() {
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <div class="bg-white p-4 rounded-lg border-2 border-pink-300 shadow text-center">
+      <h2 class="text-2xl font-bold text-pink-500">Odpoczynek 🌸</h2>
+      <p class="mt-4">To dobrze, zasłużyłaś na odpoczynek! ✨💖🧁</p>
+      <button onclick="renderHome()" class="mt-4 bg-pink-400 hover:bg-pink-500 text-white py-2 px-4 rounded">Powrót do menu</button>
+    </div>
+  `;
 }
