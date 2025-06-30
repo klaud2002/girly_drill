@@ -408,7 +408,6 @@ function restMessage() {
   `;
 }
 function resetAllProgress() {
-  questions = [];
   currentIndex = 0;
   learnedLearnMode = [];
   learnedTestMode = [];
@@ -416,8 +415,10 @@ function resetAllProgress() {
   isTestMode = false;
   testType = "single";
   localStorage.removeItem("quizProgress");
+  saveProgress(); // zapisujemy zresetowany progres
   renderHome();
 }
+
 function repeatWrongQuestions() {
   if (wrongQuestions.length === 0) {
     alert("Nie masz żadnych błędnych pytań do powtórki!");
