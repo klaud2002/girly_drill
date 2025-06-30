@@ -124,6 +124,8 @@ function renderHome() {
       ${renderProgressBar("learn")}
       ${renderProgressBar("test")}
     </div>
+    <button onclick="resetAllProgress()" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-full shadow mt-4">🔄 Resetuj całość</button>
+
   `;
 }
 
@@ -402,4 +404,15 @@ function restMessage() {
       <button onclick="renderHome()" class="mt-4 bg-pink-400 hover:bg-pink-500 text-white py-2 px-4 rounded">Powrót do menu</button>
     </div>
   `;
+}
+function resetAllProgress() {
+  questions = [];
+  currentIndex = 0;
+  learnedLearnMode = [];
+  learnedTestMode = [];
+  wrongQuestions = [];
+  isTestMode = false;
+  testType = "single";
+  localStorage.removeItem("quizProgress");
+  renderHome();
 }
