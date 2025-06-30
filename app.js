@@ -376,11 +376,13 @@ function renderEndScreen(mode) {
       <p class="mt-4">Gratulacje, księżniczko 🌸💖</p>
       <div class="mt-4 space-x-2">
         <button onclick="restartMode('${mode}')" class="bg-pink-400 hover:bg-pink-500 text-white py-2 px-4 rounded">Zacznij od nowa</button>
+        <button onclick="repeatWrongQuestions()" class="bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 rounded">Powtórz błędne</button>
         <button onclick="restMessage()" class="bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded">Odpocznij</button>
       </div>
     </div>
   `;
 }
+
 function restartMode(mode) {
   if (mode === "learn") {
     learnedLearnMode = [];
@@ -415,4 +417,15 @@ function resetAllProgress() {
   testType = "single";
   localStorage.removeItem("quizProgress");
   renderHome();
+}
+function repeatWrongQuestions() {
+  if (wrongQuestions.length === 0) {
+    alert("Nie masz żadnych błędnych pytań do powtórki!");
+    return;
+  }
+  isTestMode = true;
+  questions = wrongQuestions.map((index) => questions[index]); // tworzymy nową listę pytań tylko z błędnych
+  currentIndex = 0;
+  wrongQuestions = []; // resetujemy błędne, bo zaczynamy nowy test
+  renderTestQuestion();
 }
