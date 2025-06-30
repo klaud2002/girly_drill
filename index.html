@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌸 Lets go girlll 🌸</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-pink-50 text-pink-800 font-[Comic_Sans_MS]">
+    <div class="text-center mt-10">
+      <h1 class="text-4xl font-bold text-pink-500 drop-shadow">
+        🌸 Lets go girlll 🌸
+      </h1>
+
+      <div class="mt-6">
+        <label
+          class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded cursor-pointer inline-block"
+        >
+          ✨ Wybierz plik ✨
+          <input type="file" id="fileInput" accept=".txt" class="hidden" />
+        </label>
+      </div>
+
+      <div
+        id="app"
+        class="mt-10 max-w-2xl mx-auto p-4 bg-pink-100 rounded-lg shadow-lg"
+      ></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
